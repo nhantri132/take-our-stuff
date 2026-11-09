@@ -94,6 +94,15 @@
       "images": [
         "images/terminator-bluray.jpg"
       ]
+    },
+    {
+      "id": "hot-fuzz-bluray",
+      "name": "Hot Fuzz (Blu-ray)",
+      "category": "movies",
+      "description": "Ultimate Edition.",
+      "images": [
+        "images/hot-fuzz-bluray.jpg"
+      ]
     }
   ]
 }
