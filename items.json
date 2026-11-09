@@ -21,6 +21,15 @@
         "images/steel-bottle.jpg"
       ],
       "quantity": 5
+    },
+    {
+      "id": "cap-bench",
+      "name": "CAP Strength bench",
+      "category": "exercise",
+      "description": "Great condition, only getting rid of it because we have an incline bench now.",
+      "images": [
+        "images/cap-bench.jpg"
+      ]
     }
   ]
 }
