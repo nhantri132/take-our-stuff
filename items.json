@@ -103,6 +103,15 @@
       "images": [
         "images/hot-fuzz-bluray.jpg"
       ]
+    },
+    {
+      "id": "dice",
+      "name": "Dice set",
+      "category": "misc",
+      "description": "Blue-and-silver six-sided dice in a clear case.",
+      "images": [
+        "images/dice.jpg"
+      ]
     }
   ]
 }
