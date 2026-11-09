@@ -67,6 +67,15 @@
       "images": [
         "images/keep-going.jpg"
       ]
+    },
+    {
+      "id": "moon-bluray",
+      "name": "Moon (Blu-ray)",
+      "category": "movies",
+      "description": "",
+      "images": [
+        "images/moon-bluray.jpg"
+      ]
     }
   ]
 }
