@@ -148,6 +148,16 @@ h1 {
 .chip[data-filter="all"].is-active { background: var(--peri); }
 .chip[data-filter="available"].is-active { background: var(--sage); }
 .chip[data-filter="reserved"].is-active { background: var(--rose); }
+.filters[hidden] { display: none; }
+#category-filters + #status-filters { margin-top: 10px; }
+.cat-chip.is-active { background: var(--butter); }
+.cat-label {
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
 
 /* ── Grid ───────────────────────────────────────────────────── */
 main { max-width: 1100px; margin: 0 auto; padding: 16px 16px 56px; }

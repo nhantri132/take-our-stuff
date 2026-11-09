@@ -5,6 +5,7 @@
     {
       "id": "ps5-controller",
       "name": "PlayStation 5 controller",
+      "category": "tech",
       "description": "The batteries on this are pretty deteriorated, so it only stays on for about an hour. A great option if you can play plugged in though.",
       "images": [
         "images/ps5-controller.jpg"
@@ -14,6 +15,7 @@
     {
       "id": "steel-bottle",
       "name": "Stainless Steel Bottle",
+      "category": "home",
       "description": "Holds a moderate amount of liquid.",
       "images": [
         "images/steel-bottle.jpg"

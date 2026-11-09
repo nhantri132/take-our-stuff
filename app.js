@@ -11,7 +11,8 @@ const REFRESH_MS = 60 * 1000;
 let items = [];
 let reservations = {};   // { itemId: [{ name, qty }, ...] }
 let deadline = null;
-let filter = "all";
+let filter = "all";      // all | available | reserved
+let category = "all";    // all | a category key
 let openItem = null;
 
 const $ = (id) => document.getElementById(id);
@@ -20,6 +21,32 @@ const $ = (id) => document.getElementById(id);
 function imagesOf(it) {
   if (Array.isArray(it.images) && it.images.length) return it.images;
   return it.image ? [it.image] : [PLACEHOLDER];
+}
+
+// ── Categories ─────────────────────────────────────────────────
+// "category": "tech" in items.json. Matching ignores capitalization.
+const catKey = (it) => String(it.category || "").trim().toLowerCase();
+const catLabel = (key) => key.replace(/\b\w/g, (c) => c.toUpperCase());
+
+function buildCategoryChips() {
+  const keys = [...new Set(items.map(catKey).filter(Boolean))].sort();
+  const row = $("category-filters");
+  row.innerHTML = "";
+  // Only worth showing once there's more than one category
+  row.hidden = keys.length < 2;
+  if (row.hidden) { category = "all"; return; }
+  for (const key of ["all", ...keys]) {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "chip cat-chip" + (key === category ? " is-active" : "");
+    b.textContent = key === "all" ? "All categories" : catLabel(key);
+    b.addEventListener("click", () => {
+      category = key;
+      row.querySelectorAll(".chip").forEach((c) => c.classList.toggle("is-active", c === b));
+      render();
+    });
+    row.append(b);
+  }
 }
 
 // ── Quantity helpers ───────────────────────────────────────────
@@ -74,13 +101,14 @@ async function init() {
   render();
   setInterval(async () => { await loadReservations(); render(); if (openItem) fillDialog(openItem); }, REFRESH_MS);
 
-  document.querySelectorAll(".chip").forEach((chip) =>
+  document.querySelectorAll("#status-filters .chip").forEach((chip) =>
     chip.addEventListener("click", () => {
       filter = chip.dataset.filter;
-      document.querySelectorAll(".chip").forEach((c) => c.classList.toggle("is-active", c === chip));
+      document.querySelectorAll("#status-filters .chip").forEach((c) => c.classList.toggle("is-active", c === chip));
       render();
     })
   );
+  buildCategoryChips();
   $("reserve-form").addEventListener("submit", onReserve);
   try { $("reserve-name").value = localStorage.getItem("tosp-name") || ""; } catch (_) {}
 }
@@ -141,7 +169,8 @@ function render() {
   grid.innerHTML = "";
 
   const shown = items.filter((it) =>
-    filter === "all" || (filter === "reserved" ? claimedOf(it) > 0 : leftOf(it) > 0)
+    (category === "all" || catKey(it) === category) &&
+    (filter === "all" || (filter === "reserved" ? claimedOf(it) > 0 : leftOf(it) > 0))
   );
 
   $("status").textContent = items.length === 0
@@ -180,6 +209,12 @@ function render() {
 
     const body = document.createElement("div");
     body.className = "card-body";
+    if (catKey(it)) {
+      const cat = document.createElement("span");
+      cat.className = "cat-label";
+      cat.textContent = catLabel(catKey(it));
+      body.append(cat);
+    }
     const h3 = document.createElement("h3");
     h3.textContent = it.name;
     const p = document.createElement("p");

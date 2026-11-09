@@ -35,6 +35,8 @@ apps-script/Code.gs             the Google Sheet backend
 ```json
 { "id": "blue-armchair", "name": "Blue armchair", "description": "Comfy, a little faded.", "images": ["images/blue-armchair.jpg"] }
 ```
+**Categories:** add `"category": "tech"` (or home, kitchen, clothes — anything). Category buttons appear above the list automatically once there are at least two categories; capitalization doesn't matter.
+
 **More photos:** list them all — `"images": ["images/armchair.jpg", "images/armchair-side.jpg", "images/armchair-tag.jpg"]`. The first one is the card thumbnail; people swipe through the rest in the popup (arrows on a computer).
 For things you have several of, add `"quantity": 10` — people pick how many they want and cards show "9 available · 1 reserved". Leave it out for single items.
 
