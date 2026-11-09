@@ -2,7 +2,7 @@
 // SETUP: paste your Google Apps Script web app URL between the quotes.
 // Leave it empty to preview the site in "demo mode" (reservations
 // work on your screen only and vanish on refresh).
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxknIY4vPKZRD3MoM1yNbGcwZJAWJUHctNO80tCVYUVZaYcX6Bvlrx4dz9pso2TFcvHZw/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwtSbBwDZm-8WDnJs8eUbD3L241BL_hLHETLeaZ-P4DfEgfVYmTuBAkxaLYXmt0YfEz/exec";
 // ───────────────────────────────────────────────────────────────
 
 const PLACEHOLDER = "images/placeholder.svg";
