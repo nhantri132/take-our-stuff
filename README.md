@@ -25,9 +25,9 @@ apps-script/Code.gs             the Google Sheet backend
 > If you later edit `Code.gs`, use **Deploy → Manage deployments → Edit → New version**, or the URL keeps running the old code.
 
 ### 2. GitHub Pages
-1. Create a repo named `donate-site` and upload everything in this folder.
+1. Repo: https://github.com/nhantri132/take-our-stuff
 2. Repo **Settings → Pages** → Source: *Deploy from a branch* → `main` / `(root)` → Save.
-3. After a minute the site is at `https://<your-username>.github.io/donate-site/`. Text that link to people.
+3. After a minute the site is at https://nhantri132.github.io/take-our-stuff/ — Text that link to people.
 
 ## Day-to-day
 
