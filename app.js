@@ -26,7 +26,8 @@ function imagesOf(it) {
 // ── Categories ─────────────────────────────────────────────────
 // "category": "tech" in items.json. Matching ignores capitalization.
 const catKey = (it) => String(it.category || "").trim().toLowerCase();
-const catLabel = (key) => key.replace(/\b\w/g, (c) => c.toUpperCase());
+// Capitalize each word ("men's clothes" → "Men's Clothes", not "Men'S")
+const catLabel = (key) => key.replace(/(^|\s)\w/g, (c) => c.toUpperCase());
 
 function buildCategoryChips() {
   const keys = [...new Set(items.map(catKey).filter(Boolean))].sort();
