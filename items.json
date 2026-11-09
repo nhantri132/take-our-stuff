@@ -85,6 +85,15 @@
       "images": [
         "images/300-bluray.jpg"
       ]
+    },
+    {
+      "id": "terminator-bluray",
+      "name": "The Terminator (Blu-ray)",
+      "category": "movies",
+      "description": "",
+      "images": [
+        "images/terminator-bluray.jpg"
+      ]
     }
   ]
 }
