@@ -20,6 +20,17 @@
   --radius: 16px;
   --serif: "Playfair Display", Georgia, "Times New Roman", serif;
 }
+/* Dark theme: only when the visitor flips the switch */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #141b2e;
+  --card: #1d2640;
+  --text: #f3efe9;
+  --muted: #a9b0c6;
+  --border: #2d3755;
+  --ok: #7fe0de;
+  --taken: #f4aab6;
+}
 
 * { box-sizing: border-box; }
 body {
@@ -33,10 +44,34 @@ body {
 
 /* ── Header ─────────────────────────────────────────────────── */
 .site-header {
+  position: relative;
   max-width: 1100px;
   margin: 0 auto;
   padding: 32px 16px 8px;
   text-align: center;
+}
+.theme-toggle {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1.5px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  font: inherit;
+  font-size: .85rem;
+  cursor: pointer;
+}
+.theme-toggle:hover { border-color: var(--peri); }
+.theme-toggle svg { width: 16px; height: 16px; }
+@media (max-width: 520px) {
+  .site-header { padding-top: 52px; }
+  .theme-toggle .label { display: none; }
+  .theme-toggle { padding: 7px; }
 }
 .eyebrow {
   margin: 0 0 6px;
@@ -200,7 +235,7 @@ dialog::backdrop { background: rgba(27, 42, 74, .55); }
   line-height: 1;
   cursor: pointer;
 }
-#dlg-img { width: 100%; max-height: 60vh; object-fit: contain; background: #f1ece5; display: block; }
+#dlg-img { width: 100%; max-height: 60vh; object-fit: contain; background: var(--border); display: block; }
 .dialog-body { padding: 16px 18px 20px; }
 .dialog-body h2 { margin: 0 0 6px; font-family: var(--serif); font-weight: 600; }
 .dialog-body p { margin: 0 0 12px; }

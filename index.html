@@ -4,16 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Keeps the site out of search engines (it's still reachable by anyone with the link) -->
-  <meta name="color-scheme" content="light">
   <meta name="robots" content="noindex, nofollow">
+  <!-- Apply a saved dark-mode choice before the page draws, so it doesn't flash light first -->
+  <script>try { if (localStorage.getItem("tosp-theme") === "dark") document.documentElement.dataset.theme = "dark"; } catch (_) {}</script>
   <title>Take Our Stuff Please</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=3">
+  <link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
   <header class="site-header">
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false"></button>
     <h1>Take Our Stuff Please</h1>
     <div class="swatches" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
     <p class="tagline">Claim whatever you want by writing your name! Whatever isn't will be taken to Goodwill. You can pick up at our house, or we can just bring it the next time we see y'all.</p>
@@ -68,6 +70,6 @@
     </div>
   </dialog>
 
-  <script src="app.js?v=3"></script>
+  <script src="app.js?v=4"></script>
 </body>
 </html>
