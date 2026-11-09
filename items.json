@@ -106,11 +106,20 @@
     },
     {
       "id": "dice",
-      "name": "Dice set",
+      "name": "Blue dice set",
       "category": "misc",
       "description": "Blue-and-silver six-sided dice in a clear case.",
       "images": [
         "images/dice.jpg"
+      ]
+    },
+    {
+      "id": "pink-dice",
+      "name": "Pink dice set",
+      "category": "misc",
+      "description": "7-piece polyhedral set (D&D-style), pink and purple with gold numbers, in a carrying tube.",
+      "images": [
+        "images/pink-dice.jpg"
       ]
     }
   ]
