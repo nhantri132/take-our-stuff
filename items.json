@@ -30,6 +30,16 @@
       "images": [
         "images/cap-bench.jpg"
       ]
+    },
+    {
+      "id": "adidas-shoes",
+      "name": "Adidas Lite Racer Adapt 4.0 slip-ons",
+      "category": "men's clothes",
+      "description": "Men's size 9.5. Worn only a couple of times — just got a different pair that fits me better.",
+      "images": [
+        "images/adidas-shoes.jpg",
+        "images/adidas-shoes-size.jpg"
+      ]
     }
   ]
 }
