@@ -47,7 +47,9 @@ Watch the commas — a missing or extra comma breaks the whole list. Paste into 
 
 **See who reserved what:** open the Google Sheet.
 
-**Release a reservation** (someone changed their mind): delete that row in the Sheet, or lower its Qty.
+**Release a reservation:** people can tap **Unclaim** under "Your reservations" on the same phone/computer they reserved from. Otherwise, delete that row in the Sheet (or lower its Qty).
+
+**Claimed items** disappear from the board once every unit is reserved. Names and the private Ref codes stay in the Sheet; the site only ever sees counts.
 
 **Change the deadline or a quantity:** just edit `items.json`. The Sheet script reads it from the live site, so allow a few minutes after pushing for GitHub Pages to update. Deadline format: `2026-12-06T18:00:00-06:00` (the `-06:00` is Central Standard Time).
 

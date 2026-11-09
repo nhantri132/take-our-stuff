@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=7">
+  <link rel="stylesheet" href="style.css?v=8">
 </head>
 <body>
   <header class="site-header">
@@ -34,14 +34,14 @@
     <p class="pickup" id="pickup"></p>
 
     <div class="filters" id="category-filters" role="group" aria-label="Filter by category" hidden></div>
-    <div class="filters" id="status-filters" role="group" aria-label="Filter by availability">
-      <button class="chip is-active" data-filter="all">All</button>
-      <button class="chip" data-filter="available">Available</button>
-      <button class="chip" data-filter="reserved">Reserved</button>
-    </div>
   </header>
 
   <main>
+    <section class="mine" id="mine" hidden aria-labelledby="mine-title">
+      <h2 id="mine-title">Your reservations</h2>
+      <ul class="mine-list" id="mine-list"></ul>
+      <p class="mine-note">Saved on this phone or computer. Need to change one from a different device? Just let us know.</p>
+    </section>
     <p class="status" id="status">Loading…</p>
     <ul class="grid" id="grid"></ul>
   </main>
@@ -76,6 +76,6 @@
     </div>
   </dialog>
 
-  <script src="app.js?v=11"></script>
+  <script src="app.js?v=12"></script>
 </body>
 </html>

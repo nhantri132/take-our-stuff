@@ -365,3 +365,35 @@ dialog::backdrop { background: rgba(27, 42, 74, .55); }
   .qty-tag { top: 6px; right: 6px; font-size: .78rem; }
   .countdown-units div { min-width: 56px; }
 }
+
+/* ── Your reservations ─────────────────────────────────────── */
+.mine {
+  max-width: 620px;
+  margin: 0 auto 20px;
+  padding: 14px 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 6px solid var(--sage);
+  border-radius: var(--radius);
+}
+.mine[hidden] { display: none; }
+.mine h2 { margin: 0 0 8px; font-family: var(--serif); font-weight: 600; font-size: 1.15rem; }
+.mine-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.mine-row { display: flex; align-items: center; gap: 10px; }
+.mine-row img { width: 44px; height: 44px; object-fit: cover; border-radius: 8px; background: var(--border); flex: none; }
+.mine-name { flex: 1; min-width: 0; font-weight: 600; }
+.unclaim-btn {
+  flex: none;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  color: var(--taken);
+  font: inherit;
+  font-size: .85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.unclaim-btn:hover { border-color: var(--rose); }
+.unclaim-btn:disabled { opacity: .6; cursor: default; }
+.mine-note { margin: 10px 0 0; font-size: .82rem; color: var(--muted); }

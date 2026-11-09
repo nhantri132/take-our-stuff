@@ -2,8 +2,10 @@
 // Paste this into Extensions → Apps Script on your Google Sheet, then Deploy → Web app.
 //
 // The sheet gets a tab called "Reservations" with columns:
-//   Timestamp | Item ID | Name | Qty
+//   Timestamp | Item ID | Name | Qty | Ref
 // To release a reservation, delete its row (or lower its Qty).
+// "Ref" is a private code saved on the reserver's device so they can
+// unclaim from the site. Names and Refs are never sent to the site.
 //
 // Quantities and the deadline are read from your live items.json, so they
 // only ever need to be set in one place.
@@ -16,10 +18,12 @@ function getSheet_() {
   let sheet = ss.getSheetByName(SHEET_NAME);
   if (!sheet) {
     sheet = ss.insertSheet(SHEET_NAME);
-    sheet.appendRow(["Timestamp", "Item ID", "Name", "Qty"]);
+    sheet.appendRow(["Timestamp", "Item ID", "Name", "Qty", "Ref"]);
     sheet.setFrozenRows(1);
-  } else if (!sheet.getRange("D1").getValue()) {
-    sheet.getRange("D1").setValue("Qty"); // upgrade an older sheet
+  } else {
+    // upgrade an older sheet
+    if (!sheet.getRange("D1").getValue()) sheet.getRange("D1").setValue("Qty");
+    if (!sheet.getRange("E1").getValue()) sheet.getRange("E1").setValue("Ref");
   }
   return sheet;
 }
@@ -77,6 +81,8 @@ function doPost(e) {
     try { body = JSON.parse(e.postData.contents); }
     catch (_) { return json_({ ok: false, error: "Bad request." }); }
 
+    if (body.action === "cancel") return cancel_(String(body.token || ""));
+
     const itemId = String(body.itemId || "").trim().slice(0, 80);
     const name = String(body.name || "").trim().slice(0, 60);
     const qty = parseInt(body.qty, 10) || 1;
@@ -108,10 +114,27 @@ function doPost(e) {
 
     // Leading ' stops a name like "=HYPERLINK(...)" from running as a formula.
     const safe = (s) => (/^[=+\-@]/.test(s) ? "'" + s : s);
-    getSheet_().appendRow([new Date(), safe(itemId), safe(name), qty]);
+    const token = Utilities.getUuid();
+    getSheet_().appendRow([new Date(), safe(itemId), safe(name), qty, token]);
     (current[itemId] = current[itemId] || []).push({ name, qty });
-    return json_({ ok: true, counts: counts_(current) });
+    return json_({ ok: true, counts: counts_(current), token: token });
   } finally {
     lock.releaseLock();
   }
+}
+
+// Unclaim: delete the row whose Ref matches. Only the reserver's device has it.
+// (Called from doPost, which already holds the lock.)
+function cancel_(token) {
+  if (!/^[0-9a-f-]{36}$/i.test(token)) return json_({ ok: false, error: "Bad request." });
+  const sheet = getSheet_();
+  const refs = sheet.getRange(1, 5, sheet.getLastRow(), 1).getValues();
+  for (let i = refs.length - 1; i >= 1; i--) {
+    if (String(refs[i][0]) === token) {
+      sheet.deleteRow(i + 1);
+      return json_({ ok: true, counts: counts_(readReservations_()) });
+    }
+  }
+  return json_({ ok: false, notFound: true, error: "That reservation was already released.",
+                 counts: counts_(readReservations_()) });
 }

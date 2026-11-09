@@ -11,9 +11,19 @@ const REFRESH_MS = 60 * 1000;
 let items = [];
 let claimed = {};        // { itemId: number reserved } (names stay private in the Sheet)
 let deadline = null;
-let filter = "all";      // all | available | reserved
 let category = "all";    // all | a category key
 let openItem = null;
+
+// Reservations made on this device, so people can unclaim their own.
+// Each has a private token from the Sheet; only that token can cancel it.
+const MINE_KEY = "tosp-mine";
+function loadMine() {
+  try { return JSON.parse(localStorage.getItem(MINE_KEY)) || []; } catch (_) { return []; }
+}
+function saveMine(list) {
+  try { localStorage.setItem(MINE_KEY, JSON.stringify(list)); } catch (_) {}
+}
+let mine = loadMine();
 
 const $ = (id) => document.getElementById(id);
 
@@ -29,8 +39,9 @@ const catKey = (it) => String(it.category || "").trim().toLowerCase();
 // Capitalize each word ("men's clothes" → "Men's Clothes", not "Men'S")
 const catLabel = (key) => key.replace(/(^|\s)\w/g, (c) => c.toUpperCase());
 
-function buildCategoryChips() {
-  const keys = [...new Set(items.map(catKey).filter(Boolean))].sort();
+function buildCategoryChips(onBoard) {
+  const keys = [...new Set(onBoard.map(catKey).filter(Boolean))].sort();
+  if (category !== "all" && !keys.includes(category)) category = "all";
   const row = $("category-filters");
   row.innerHTML = "";
   // Only worth showing once there's more than one category
@@ -84,14 +95,6 @@ async function init() {
   render();
   setInterval(async () => { await loadReservations(); render(); if (openItem) fillDialog(openItem); }, REFRESH_MS);
 
-  document.querySelectorAll("#status-filters .chip").forEach((chip) =>
-    chip.addEventListener("click", () => {
-      filter = chip.dataset.filter;
-      document.querySelectorAll("#status-filters .chip").forEach((c) => c.classList.toggle("is-active", c === chip));
-      render();
-    })
-  );
-  buildCategoryChips();
   $("reserve-form").addEventListener("submit", onReserve);
   try { $("reserve-name").value = localStorage.getItem("tosp-name") || ""; } catch (_) {}
 }
@@ -146,7 +149,7 @@ async function saveReservation(it, name, qty) {
     if (left === 0) return { ok: false, error: "Sorry, that's all been claimed." };
     if (qty > left) return { ok: false, error: `Only ${left} left.` };
     claimed[it.id] = (claimed[it.id] || 0) + qty;
-    return { ok: true, counts: claimed };
+    return { ok: true, counts: claimed, token: "demo-" + Math.random().toString(36).slice(2) };
   }
   // text/plain avoids a CORS preflight, which Apps Script can't answer.
   return fetch(SCRIPT_URL, {
@@ -156,19 +159,34 @@ async function saveReservation(it, name, qty) {
   }).then((r) => r.json());
 }
 
+async function cancelReservation(entry) {
+  if (!SCRIPT_URL) {
+    claimed[entry.itemId] = Math.max(0, (claimed[entry.itemId] || 0) - entry.qty);
+    return { ok: true, counts: claimed };
+  }
+  return fetch(SCRIPT_URL, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify({ action: "cancel", token: entry.token }),
+  }).then((r) => r.json());
+}
+
 // ── Rendering ──────────────────────────────────────────────────
 function render() {
   const grid = $("grid");
   grid.innerHTML = "";
 
-  // Newest first: items added later in items.json show at the top
-  const shown = items.slice().reverse().filter((it) =>
-    (category === "all" || catKey(it) === category) &&
-    (filter === "all" || (filter === "reserved" ? claimedOf(it) > 0 : leftOf(it) > 0))
-  );
+  renderMine();
+
+  // Fully claimed items come off the board. Newest first: items added
+  // later in items.json show at the top.
+  const onBoard = items.slice().reverse().filter((it) => leftOf(it) > 0);
+  buildCategoryChips(onBoard);
+  const shown = onBoard.filter((it) => category === "all" || catKey(it) === category);
 
   $("status").textContent = items.length === 0
     ? "Nothing listed yet."
+    : onBoard.length === 0 ? "Everything's been claimed!"
     : shown.length === 0 ? "Nothing here." : "";
 
   for (const it of shown) {
@@ -221,6 +239,57 @@ function render() {
     card.append(media, body);
     li.append(card);
     grid.append(li);
+  }
+}
+
+// "Your reservations": what this device claimed, with an Unclaim button
+function renderMine() {
+  // Drop entries for items no longer listed
+  mine = mine.filter((m) => items.some((it) => it.id === m.itemId));
+  const list = $("mine-list");
+  list.innerHTML = "";
+  $("mine").hidden = mine.length === 0;
+  for (const m of mine) {
+    const it = items.find((x) => x.id === m.itemId);
+    const li = document.createElement("li");
+    li.className = "mine-row";
+    const img = document.createElement("img");
+    img.src = imagesOf(it)[0];
+    img.alt = "";
+    img.onerror = () => { img.onerror = null; img.src = PLACEHOLDER; };
+    const label = document.createElement("span");
+    label.className = "mine-name";
+    label.textContent = it.name + (totalOf(it) > 1 ? ` (${m.qty})` : "");
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "unclaim-btn";
+    btn.textContent = "Unclaim";
+    btn.addEventListener("click", () => onUnclaim(m, it, btn));
+    li.append(img, label, btn);
+    list.append(li);
+  }
+}
+
+async function onUnclaim(entry, it, btn) {
+  const what = totalOf(it) > 1 ? `${entry.qty} × ${it.name}` : it.name;
+  if (!confirm(`Unclaim ${what}? It'll go back on the board for someone else.`)) return;
+  btn.disabled = true;
+  btn.textContent = "…";
+  try {
+    const res = await cancelReservation(entry);
+    if (res.counts) claimed = countsFrom(res);
+    // notFound: already released (e.g. deleted from the Sheet), so forget it too
+    if (res.ok || res.notFound) {
+      mine = mine.filter((m) => m.token !== entry.token);
+      saveMine(mine);
+    } else {
+      alert(res.error || "Couldn't unclaim that. Try again in a minute.");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Couldn't reach the server. Try again in a minute.");
+  } finally {
+    render();
   }
 }
 
@@ -333,10 +402,14 @@ async function onReserve(e) {
     if (res.counts || res.reservations) claimed = countsFrom(res);
     if (res.ok) {
       try { localStorage.setItem("tosp-name", name); } catch (_) {}
+      if (res.token) {
+        mine.push({ token: res.token, itemId: it.id, qty });
+        saveMine(mine);
+      }
       msg.className = "form-msg success";
       msg.textContent = qty > 1
-        ? `${qty} are yours! We'll be in touch about pickup.`
-        : "It's yours! We'll be in touch about pickup.";
+        ? `${qty} are yours! We'll be in touch about pickup. Changed your mind? Unclaim it under "Your reservations."`
+        : `It's yours! We'll be in touch about pickup. Changed your mind? Unclaim it under "Your reservations."`;
     } else {
       msg.className = "form-msg error";
       msg.textContent = res.error || "Something went wrong. Try again.";
