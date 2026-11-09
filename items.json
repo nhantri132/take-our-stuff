@@ -1,0 +1,24 @@
+{
+  "deadline": "2026-12-06T18:00:00-06:00",
+  "pickupNote": "Pickup from our place in Rosharon, or we can bring it to the next family get-together. Text Tri to set a time.",
+  "items": [
+    {
+      "id": "floor-lamp",
+      "name": "Floor lamp",
+      "description": "Tall brass floor lamp, works great. Shade has a small scuff.",
+      "image": "images/floor-lamp.jpg"
+    },
+    {
+      "id": "stand-mixer",
+      "name": "Stand mixer",
+      "description": "5-quart, white. Comes with dough hook and whisk.",
+      "image": "images/stand-mixer.jpg"
+    },
+    {
+      "id": "board-games",
+      "name": "Box of board games",
+      "description": "About 8 games, all pieces counted. Take one or the whole box.",
+      "image": "images/board-games.jpg"
+    }
+  ]
+}

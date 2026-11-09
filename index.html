@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Keeps the site out of search engines (it's still reachable by anyone with the link) -->
+  <meta name="robots" content="noindex, nofollow">
+  <title>Take Our Stuff Please</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1>Take Our Stuff Please</h1>
+    <p class="tagline">Friends &amp; family get first dibs. Whatever's left goes to Goodwill.</p>
+
+    <div class="countdown" id="countdown" aria-live="polite">
+      <span class="countdown-label">Goodwill run in</span>
+      <div class="countdown-units">
+        <div><span id="cd-days">–</span><small>days</small></div>
+        <div><span id="cd-hours">–</span><small>hrs</small></div>
+        <div><span id="cd-mins">–</span><small>min</small></div>
+        <div><span id="cd-secs">–</span><small>sec</small></div>
+      </div>
+    </div>
+    <p class="closed-banner" id="closed-banner" hidden>Time's up — everything unclaimed is headed to Goodwill.</p>
+
+    <p class="pickup" id="pickup"></p>
+
+    <div class="filters" role="group" aria-label="Filter items">
+      <button class="chip is-active" data-filter="all">All</button>
+      <button class="chip" data-filter="available">Available</button>
+      <button class="chip" data-filter="reserved">Reserved</button>
+    </div>
+  </header>
+
+  <main>
+    <p class="status" id="status">Loading…</p>
+    <ul class="grid" id="grid"></ul>
+  </main>
+
+  <dialog id="item-dialog">
+    <form method="dialog" class="dialog-close-form">
+      <button class="dialog-close" aria-label="Close">×</button>
+    </form>
+    <img id="dlg-img" alt="">
+    <div class="dialog-body">
+      <h2 id="dlg-name"></h2>
+      <p id="dlg-desc"></p>
+      <p class="reserved-note" id="dlg-reserved" hidden></p>
+      <form id="reserve-form" class="reserve-form">
+        <label for="reserve-name">Want it? Put your name down:</label>
+        <div class="reserve-row">
+          <input id="reserve-name" name="name" maxlength="60" autocomplete="name" placeholder="Your name" required>
+          <button type="submit" id="reserve-btn">Reserve</button>
+        </div>
+        <p class="form-msg" id="form-msg" role="status"></p>
+      </form>
+    </div>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
