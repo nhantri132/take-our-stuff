@@ -3,29 +3,11 @@
   "pickupNote": "",
   "items": [
     {
-      "id": "floor-lamp",
-      "name": "Floor lamp",
-      "description": "Tall brass floor lamp, works great. Shade has a small scuff.",
-      "image": "images/floor-lamp.jpg"
-    },
-    {
-      "id": "stand-mixer",
-      "name": "Stand mixer",
-      "description": "5-quart, white. Comes with dough hook and whisk.",
-      "image": "images/stand-mixer.jpg"
-    },
-    {
-      "id": "mason-jars",
-      "name": "Mason jars",
-      "description": "Wide-mouth pint jars with lids. Take as many as you want.",
-      "image": "images/mason-jars.jpg",
-      "quantity": 10
-    },
-    {
-      "id": "board-games",
-      "name": "Box of board games",
-      "description": "About 8 games, all pieces counted. Take one or the whole box.",
-      "image": "images/board-games.jpg"
+      "id": "ps5-controller",
+      "name": "PlayStation 5 controller",
+      "description": "The batteries on this are pretty deteriorated, so it only stays on for about an hour. A great option if you can play plugged in though.",
+      "image": "images/ps5-controller.jpg",
+      "quantity": 2
     }
   ]
 }
