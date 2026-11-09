@@ -40,6 +40,15 @@
         "images/adidas-shoes.jpg",
         "images/adidas-shoes-size.jpg"
       ]
+    },
+    {
+      "id": "how-not-to-die",
+      "name": "How Not to Die (Michael Greger)",
+      "category": "books",
+      "description": "",
+      "images": [
+        "images/how-not-to-die.jpg"
+      ]
     }
   ]
 }
