@@ -158,6 +158,16 @@
       "images": [
         "images/eyes-pants.jpg"
       ]
+    },
+    {
+      "id": "red-bath-towel",
+      "name": "Red bath towel",
+      "category": "home",
+      "description": "Coral-red terry bath towels.",
+      "images": [
+        "images/red-bath-towel.jpg"
+      ],
+      "quantity": 2
     }
   ]
 }
