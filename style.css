@@ -1,5 +1,6 @@
 /* Palette: peach, butter, aqua, rose, sage, periwinkle on cream, with navy type */
 :root {
+  color-scheme: light;
   --peach: #f7b9a1;
   --butter: #fcd58c;
   --aqua: #5dcfcf;
@@ -18,17 +19,6 @@
   --taken: #b8475d;         /* readable rose for text */
   --radius: 16px;
   --serif: "Playfair Display", Georgia, "Times New Roman", serif;
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #141b2e;
-    --card: #1d2640;
-    --text: #f3efe9;
-    --muted: #a9b0c6;
-    --border: #2d3755;
-    --ok: #7fe0de;
-    --taken: #f4aab6;
-  }
 }
 
 * { box-sizing: border-box; }
