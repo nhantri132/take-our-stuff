@@ -121,6 +121,15 @@
       "images": [
         "images/pink-dice.jpg"
       ]
+    },
+    {
+      "id": "black-dice",
+      "name": "Black dice set",
+      "category": "misc",
+      "description": "7-piece polyhedral set (D&D-style), black with gold numbers. Still in the bag.",
+      "images": [
+        "images/black-dice.jpg"
+      ]
     }
   ]
 }
