@@ -58,6 +58,15 @@
       "images": [
         "images/takeya-pitcher.jpg"
       ]
+    },
+    {
+      "id": "keep-going",
+      "name": "Keep Going (Austin Kleon)",
+      "category": "books",
+      "description": "",
+      "images": [
+        "images/keep-going.jpg"
+      ]
     }
   ]
 }
