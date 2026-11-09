@@ -49,6 +49,15 @@
       "images": [
         "images/how-not-to-die.jpg"
       ]
+    },
+    {
+      "id": "takeya-pitcher",
+      "name": "Takeya plastic pitcher",
+      "category": "kitchen",
+      "description": "Only used once.",
+      "images": [
+        "images/takeya-pitcher.jpg"
+      ]
     }
   ]
 }
