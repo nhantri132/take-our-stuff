@@ -149,6 +149,15 @@
         "images/montgomery-post-pants.jpg",
         "images/montgomery-post-pants-tag.jpg"
       ]
+    },
+    {
+      "id": "eyes-pants",
+      "name": "Eyes pants",
+      "category": "women's clothes",
+      "description": "Size Large (40/42). Black-and-white all-over print of eyes from classic paintings.",
+      "images": [
+        "images/eyes-pants.jpg"
+      ]
     }
   ]
 }
