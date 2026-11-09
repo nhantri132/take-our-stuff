@@ -139,6 +139,16 @@
       "images": [
         "images/ivory-dice.jpg"
       ]
+    },
+    {
+      "id": "montgomery-post-pants",
+      "name": "Montgomery Post pants",
+      "category": "women's clothes",
+      "description": "Women's size 10. Beige wide-leg pleated trousers.",
+      "images": [
+        "images/montgomery-post-pants.jpg",
+        "images/montgomery-post-pants-tag.jpg"
+      ]
     }
   ]
 }
