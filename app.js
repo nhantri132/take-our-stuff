@@ -77,10 +77,10 @@ function badgeText(it) {
   const total = totalOf(it), left = leftOf(it), claimed = total - left;
   if (total === 1) {
     if (claimed) return claimantText(it);
-    return isClosed() ? "Going to Goodwill" : "Available";
+    return isClosed() ? "Being donated" : "Available";
   }
   if (left === 0) return `All ${total} claimed`;
-  if (isClosed()) return `${left} going to Goodwill` + (claimed ? ` · ${claimed} reserved` : "");
+  if (isClosed()) return `${left} being donated` + (claimed ? ` · ${claimed} reserved` : "");
   return `${left} available` + (claimed ? ` · ${claimed} reserved` : "");
 }
 

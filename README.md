@@ -1,6 +1,6 @@
 # Take Our Stuff Please
 
-A tiny site where friends and family can claim stuff before it goes to Goodwill.
+A tiny site where friends and family can claim stuff before it's donated.
 Static files on GitHub Pages; reservations live in a Google Sheet.
 
 ```
