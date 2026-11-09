@@ -76,6 +76,15 @@
       "images": [
         "images/moon-bluray.jpg"
       ]
+    },
+    {
+      "id": "300-bluray",
+      "name": "300 (Blu-ray)",
+      "category": "movies",
+      "description": "",
+      "images": [
+        "images/300-bluray.jpg"
+      ]
     }
   ]
 }
