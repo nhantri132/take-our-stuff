@@ -51,13 +51,22 @@ function getConfig_() {
   return JSON.parse(text);
 }
 
+// What the public site gets: how many of each item are reserved, no names.
+function counts_(reservations) {
+  const out = {};
+  for (const id in reservations) {
+    out[id] = reservations[id].reduce((n, r) => n + r.qty, 0);
+  }
+  return out;
+}
+
 function json_(obj) {
   return ContentService.createTextOutput(JSON.stringify(obj))
     .setMimeType(ContentService.MimeType.JSON);
 }
 
 function doGet() {
-  return json_({ reservations: readReservations_() });
+  return json_({ counts: counts_(readReservations_()) });
 }
 
 function doPost(e) {
@@ -80,28 +89,28 @@ function doPost(e) {
     const current = readReservations_();
 
     if (new Date() >= new Date(config.deadline)) {
-      return json_({ ok: false, error: "Sorry, reservations are closed.", reservations: current });
+      return json_({ ok: false, error: "Sorry, reservations are closed.", counts: counts_(current) });
     }
 
     const item = (config.items || []).find((it) => it.id === itemId);
-    if (!item) return json_({ ok: false, error: "That item isn't listed anymore.", reservations: current });
+    if (!item) return json_({ ok: false, error: "That item isn't listed anymore.", counts: counts_(current) });
 
     const total = Math.max(1, parseInt(item.quantity, 10) || 1);
     const claimed = (current[itemId] || []).reduce((n, r) => n + r.qty, 0);
     const left = total - claimed;
 
     if (left <= 0) {
-      return json_({ ok: false, error: "Sorry, that's all been claimed.", reservations: current });
+      return json_({ ok: false, error: "Sorry, that's all been claimed.", counts: counts_(current) });
     }
     if (qty < 1 || qty > left) {
-      return json_({ ok: false, error: `Only ${left} left.`, reservations: current });
+      return json_({ ok: false, error: `Only ${left} left.`, counts: counts_(current) });
     }
 
     // Leading ' stops a name like "=HYPERLINK(...)" from running as a formula.
     const safe = (s) => (/^[=+\-@]/.test(s) ? "'" + s : s);
     getSheet_().appendRow([new Date(), safe(itemId), safe(name), qty]);
     (current[itemId] = current[itemId] || []).push({ name, qty });
-    return json_({ ok: true, reservations: current });
+    return json_({ ok: true, counts: counts_(current) });
   } finally {
     lock.releaseLock();
   }

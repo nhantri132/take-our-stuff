@@ -9,7 +9,7 @@ const PLACEHOLDER = "images/placeholder.svg";
 const REFRESH_MS = 60 * 1000;
 
 let items = [];
-let reservations = {};   // { itemId: [{ name, qty }, ...] }
+let claimed = {};        // { itemId: number reserved } (names stay private in the Sheet)
 let deadline = null;
 let filter = "all";      // all | available | reserved
 let category = "all";    // all | a category key
@@ -52,31 +52,13 @@ function buildCategoryChips() {
 
 // ── Quantity helpers ───────────────────────────────────────────
 const totalOf = (it) => Math.max(1, parseInt(it.quantity, 10) || 1);
-const claimedOf = (it) => (reservations[it.id] || []).reduce((n, r) => n + (r.qty || 1), 0);
+const claimedOf = (it) => claimed[it.id] || 0;
 const leftOf = (it) => Math.max(0, totalOf(it) - claimedOf(it));
-
-// Merge repeat reservations by the same person: [{name, qty}]
-function claimantsOf(it) {
-  const byName = new Map();
-  for (const r of reservations[it.id] || []) {
-    const key = r.name.trim().toLowerCase();
-    const prev = byName.get(key);
-    byName.set(key, { name: prev ? prev.name : r.name, qty: (prev ? prev.qty : 0) + (r.qty || 1) });
-  }
-  return [...byName.values()];
-}
-
-function claimantText(it) {
-  const list = claimantsOf(it);
-  if (!list.length) return "";
-  const multi = totalOf(it) > 1;
-  return "Reserved by " + list.map((c) => (multi && c.qty > 1 ? `${c.name} (${c.qty})` : c.name)).join(", ");
-}
 
 function badgeText(it) {
   const total = totalOf(it), left = leftOf(it), claimed = total - left;
   if (total === 1) {
-    if (claimed) return claimantText(it);
+    if (claimed) return "Reserved";
     return isClosed() ? "Being donated" : "Available";
   }
   if (left === 0) return `All ${total} claimed`;
@@ -137,11 +119,21 @@ function startCountdown() {
 }
 
 // ── Reservations (Google Sheet via Apps Script) ────────────────
+// The script returns { counts: { itemId: n } }. An older script returned
+// names ({ reservations }); convert that to counts so names never show.
+function countsFrom(res) {
+  if (res && res.counts) return res.counts;
+  const out = {};
+  for (const [id, list] of Object.entries((res && res.reservations) || {})) {
+    out[id] = list.reduce((n, r) => n + (r.qty || 1), 0);
+  }
+  return out;
+}
 async function loadReservations() {
   if (!SCRIPT_URL) return;
   try {
     const res = await fetch(SCRIPT_URL, { cache: "no-store" }).then((r) => r.json());
-    reservations = res.reservations || {};
+    claimed = countsFrom(res);
   } catch (err) {
     console.error("Couldn't load reservations", err);
   }
@@ -153,8 +145,8 @@ async function saveReservation(it, name, qty) {
     const left = leftOf(it);
     if (left === 0) return { ok: false, error: "Sorry, that's all been claimed." };
     if (qty > left) return { ok: false, error: `Only ${left} left.` };
-    (reservations[it.id] ||= []).push({ name, qty });
-    return { ok: true, reservations };
+    claimed[it.id] = (claimed[it.id] || 0) + qty;
+    return { ok: true, counts: claimed };
   }
   // text/plain avoids a CORS preflight, which Apps Script can't answer.
   return fetch(SCRIPT_URL, {
@@ -302,9 +294,9 @@ function fillDialog(it) {
   $("dlg-count").hidden = total === 1;
   $("dlg-count").textContent = `${left} of ${total} still available`;
 
-  const who = claimantText(it);
-  $("dlg-reserved").hidden = !who;
-  $("dlg-reserved").textContent = who;
+  // Single items say "Reserved"; multi-quantity items already show the count above
+  $("dlg-reserved").hidden = !(total === 1 && left === 0);
+  $("dlg-reserved").textContent = "Reserved";
 
   $("reserve-form").hidden = left === 0 || isClosed();
   $("qty-field").hidden = total === 1;
@@ -338,7 +330,7 @@ async function onReserve(e) {
 
   try {
     const res = await saveReservation(it, name, qty);
-    if (res.reservations) reservations = res.reservations;
+    if (res.counts || res.reservations) claimed = countsFrom(res);
     if (res.ok) {
       try { localStorage.setItem("tosp-name", name); } catch (_) {}
       msg.className = "form-msg success";
