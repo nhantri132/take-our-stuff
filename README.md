@@ -33,8 +33,9 @@ apps-script/Code.gs             the Google Sheet backend
 
 **Add an item:** drop a photo in `images/`, add an entry to `items.json`:
 ```json
-{ "id": "blue-armchair", "name": "Blue armchair", "description": "Comfy, a little faded.", "image": "images/blue-armchair.jpg" }
+{ "id": "blue-armchair", "name": "Blue armchair", "description": "Comfy, a little faded.", "images": ["images/blue-armchair.jpg"] }
 ```
+**More photos:** list them all — `"images": ["images/armchair.jpg", "images/armchair-side.jpg", "images/armchair-tag.jpg"]`. The first one is the card thumbnail; people swipe through the rest in the popup (arrows on a computer).
 For things you have several of, add `"quantity": 10` — people pick how many they want and cards show "9 available · 1 reserved". Leave it out for single items.
 
 `id` must be unique and should never change once people can reserve it (reservations are keyed to it).

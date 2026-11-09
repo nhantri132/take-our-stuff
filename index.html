@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=5">
+  <link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
   <header class="site-header">
@@ -49,7 +49,12 @@
     <form method="dialog" class="dialog-close-form">
       <button class="dialog-close" aria-label="Close">×</button>
     </form>
-    <img id="dlg-img" alt="">
+    <div class="gallery" id="gallery">
+      <div class="gallery-track" id="gallery-track"></div>
+      <button type="button" class="gallery-arrow prev" id="gallery-prev" aria-label="Previous photo">‹</button>
+      <button type="button" class="gallery-arrow next" id="gallery-next" aria-label="Next photo">›</button>
+      <div class="gallery-dots" id="gallery-dots"></div>
+    </div>
     <div class="dialog-body">
       <h2 id="dlg-name"></h2>
       <p id="dlg-desc"></p>
@@ -70,6 +75,6 @@
     </div>
   </dialog>
 
-  <script src="app.js?v=5"></script>
+  <script src="app.js?v=6"></script>
 </body>
 </html>

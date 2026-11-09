@@ -16,6 +16,12 @@ let openItem = null;
 
 const $ = (id) => document.getElementById(id);
 
+// Photos: "images": [...] or the older single "image"
+function imagesOf(it) {
+  if (Array.isArray(it.images) && it.images.length) return it.images;
+  return it.image ? [it.image] : [PLACEHOLDER];
+}
+
 // ── Quantity helpers ───────────────────────────────────────────
 const totalOf = (it) => Math.max(1, parseInt(it.quantity, 10) || 1);
 const claimedOf = (it) => (reservations[it.id] || []).reduce((n, r) => n + (r.qty || 1), 0);
@@ -153,11 +159,18 @@ function render() {
     const media = document.createElement("div");
     media.className = "card-media";
     const img = document.createElement("img");
-    img.src = it.image || PLACEHOLDER;
+    const photos = imagesOf(it);
+    img.src = photos[0];
     img.alt = it.name;
     img.loading = "lazy";
     img.onerror = () => { img.onerror = null; img.src = PLACEHOLDER; };
     media.append(img);
+    if (photos.length > 1) {
+      const pc = document.createElement("span");
+      pc.className = "photo-tag";
+      pc.textContent = `${photos.length} photos`;
+      media.append(pc);
+    }
     if (total > 1) {
       const q = document.createElement("span");
       q.className = "qty-tag";
@@ -188,15 +201,62 @@ function openDialog(it) {
   $("form-msg").textContent = "";
   $("form-msg").className = "form-msg";
   $("reserve-qty").value = 1;
+  buildGallery(it);
   fillDialog(it);
   $("item-dialog").showModal();
+  $("gallery-track").scrollLeft = 0;
 }
 
+// Swipeable photo strip with dots and arrows. Built once per open so the
+// once-a-minute refresh doesn't jump you back to the first photo.
+function buildGallery(it) {
+  const photos = imagesOf(it);
+  const track = $("gallery-track");
+  const dots = $("gallery-dots");
+  track.innerHTML = "";
+  dots.innerHTML = "";
+  photos.forEach((src, i) => {
+    const img = document.createElement("img");
+    img.src = src;
+    img.alt = photos.length > 1 ? `${it.name}, photo ${i + 1} of ${photos.length}` : it.name;
+    if (i > 0) img.loading = "lazy";
+    img.onerror = () => { img.onerror = null; img.src = PLACEHOLDER; };
+    track.append(img);
+    if (photos.length > 1) {
+      const d = document.createElement("button");
+      d.type = "button";
+      d.className = "dot" + (i === 0 ? " is-active" : "");
+      d.setAttribute("aria-label", `Photo ${i + 1}`);
+      d.addEventListener("click", () => goToPhoto(i));
+      dots.append(d);
+    }
+  });
+  $("gallery").classList.toggle("is-multi", photos.length > 1);
+}
+
+function currentPhoto() {
+  const t = $("gallery-track");
+  return Math.round(t.scrollLeft / Math.max(1, t.clientWidth));
+}
+function goToPhoto(i) {
+  const t = $("gallery-track");
+  const n = t.children.length;
+  i = (i + n) % n;
+  t.scrollTo({ left: i * t.clientWidth, behavior: "smooth" });
+}
+$("gallery-track").addEventListener("scroll", () => {
+  const i = currentPhoto();
+  [...$("gallery-dots").children].forEach((d, j) => d.classList.toggle("is-active", j === i));
+}, { passive: true });
+$("gallery-prev").addEventListener("click", () => goToPhoto(currentPhoto() - 1));
+$("gallery-next").addEventListener("click", () => goToPhoto(currentPhoto() + 1));
+$("item-dialog").addEventListener("keydown", (e) => {
+  if (e.target.tagName === "INPUT") return;
+  if (e.key === "ArrowLeft") goToPhoto(currentPhoto() - 1);
+  if (e.key === "ArrowRight") goToPhoto(currentPhoto() + 1);
+});
+
 function fillDialog(it) {
-  const img = $("dlg-img");
-  img.src = it.image || PLACEHOLDER;
-  img.alt = it.name;
-  img.onerror = () => { img.onerror = null; img.src = PLACEHOLDER; };
   $("dlg-name").textContent = it.name;
   $("dlg-desc").textContent = it.description || "";
 

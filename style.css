@@ -200,6 +200,16 @@ main { max-width: 1100px; margin: 0 auto; padding: 16px 16px 56px; }
   font-weight: 700;
   font-size: .85rem;
 }
+.photo-tag {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(27,42,74,.7);
+  color: #fff;
+  font-size: .75rem;
+}
 .card-body { padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
 .card h3 { margin: 0; font-family: var(--serif); font-weight: 600; font-size: 1.15rem; }
 .card p { margin: 0; color: var(--muted); font-size: .92rem; }
@@ -239,7 +249,59 @@ dialog::backdrop { background: rgba(27, 42, 74, .55); }
   line-height: 1;
   cursor: pointer;
 }
-#dlg-img { width: 100%; max-height: 50vh; object-fit: contain; background: var(--border); display: block; }
+.gallery { position: relative; background: var(--border); }
+.gallery-track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.gallery-track::-webkit-scrollbar { display: none; }
+.gallery-track img {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 50vh;
+  object-fit: contain;
+  scroll-snap-align: start;
+  display: block;
+}
+.gallery:not(.is-multi) .gallery-track img { height: auto; max-height: 50vh; }
+.gallery-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px; height: 38px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255,255,255,.9);
+  color: #1b2a4a;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  display: none;
+}
+.gallery-arrow.prev { left: 8px; }
+.gallery-arrow.next { right: 8px; }
+/* Arrows on mouse devices; phones swipe */
+@media (hover: hover) { .gallery.is-multi .gallery-arrow { display: block; } }
+.gallery-dots {
+  position: absolute;
+  bottom: 10px;
+  left: 0; right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+.gallery-dots .dot {
+  width: 8px; height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255,255,255,.65);
+  box-shadow: 0 0 0 1px rgba(27,42,74,.25);
+  cursor: pointer;
+}
+.gallery-dots .dot.is-active { background: var(--aqua); width: 18px; border-radius: 4px; }
 .dialog-body { padding: 16px 18px 20px; }
 .dialog-body h2 { margin: 0 0 6px; font-family: var(--serif); font-weight: 600; }
 .dialog-body p { margin: 0 0 12px; }
