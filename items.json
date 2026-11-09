@@ -130,6 +130,15 @@
       "images": [
         "images/black-dice.jpg"
       ]
+    },
+    {
+      "id": "ivory-dice",
+      "name": "Ivory dice set (gift box)",
+      "category": "misc",
+      "description": "7-piece polyhedral set (D&D-style), ivory with blue numbers, in a black foam-lined gift box.",
+      "images": [
+        "images/ivory-dice.jpg"
+      ]
     }
   ]
 }
