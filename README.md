@@ -31,7 +31,7 @@ apps-script/Code.gs             the Google Sheet backend
 
 ## Day-to-day
 
-**Add an item:** drop a photo in `images/`, add an entry to `items.json`:
+**Add an item:** drop a photo in `images/`, add an entry to the **end** of `items.json` (the site shows the newest items first):
 ```json
 { "id": "blue-armchair", "name": "Blue armchair", "description": "Comfy, a little faded.", "images": ["images/blue-armchair.jpg"] }
 ```

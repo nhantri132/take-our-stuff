@@ -169,7 +169,8 @@ function render() {
   const grid = $("grid");
   grid.innerHTML = "";
 
-  const shown = items.filter((it) =>
+  // Newest first: items added later in items.json show at the top
+  const shown = items.slice().reverse().filter((it) =>
     (category === "all" || catKey(it) === category) &&
     (filter === "all" || (filter === "reserved" ? claimedOf(it) > 0 : leftOf(it) > 0))
   );
