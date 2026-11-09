@@ -35,6 +35,8 @@ apps-script/Code.gs             the Google Sheet backend
 ```json
 { "id": "blue-armchair", "name": "Blue armchair", "description": "Comfy, a little faded.", "image": "images/blue-armchair.jpg" }
 ```
+For things you have several of, add `"quantity": 10` — people pick how many they want and cards show "9 available · 1 reserved". Leave it out for single items.
+
 `id` must be unique and should never change once people can reserve it (reservations are keyed to it).
 Watch the commas — a missing or extra comma breaks the whole list. Paste into jsonlint.com if the page says it couldn't load.
 
@@ -42,9 +44,9 @@ Watch the commas — a missing or extra comma breaks the whole list. Paste into 
 
 **See who reserved what:** open the Google Sheet.
 
-**Release a reservation** (someone changed their mind): delete that row in the Sheet.
+**Release a reservation** (someone changed their mind): delete that row in the Sheet, or lower its Qty.
 
-**Change the deadline:** update `deadline` in `items.json` **and** `DEADLINE` in `Code.gs` (then redeploy a new version). Format: `2026-12-06T18:00:00-06:00` (the `-06:00` is Central Standard Time).
+**Change the deadline or a quantity:** just edit `items.json`. The Sheet script reads it from the live site, so allow a few minutes after pushing for GitHub Pages to update. Deadline format: `2026-12-06T18:00:00-06:00` (the `-06:00` is Central Standard Time).
 
 ## Shrinking photos
 Phone photos are 3–5 MB; aim for ~200 KB each so the page loads fast on cellular.
@@ -61,4 +63,5 @@ Leave `SCRIPT_URL` empty for demo mode, then from this folder run `python3 -m ht
 ## Known limits (fine for family use)
 - **Unlisted, not private.** The repo is public and anyone with the link can view and reserve. Search engines are told not to index it.
 - **Honor system.** Anyone can type any name. Releases are manual (delete the Sheet row).
+- **Quantities are trusted to `items.json`.** If you lower a quantity below what's already reserved, the item just shows as all claimed; nobody gets un-reserved automatically.
 - **Updates every minute.** If two people tap Reserve at the same moment, the Sheet takes the first one and tells the second it's taken.

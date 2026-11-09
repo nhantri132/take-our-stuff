@@ -6,12 +6,17 @@
   <!-- Keeps the site out of search engines (it's still reachable by anyone with the link) -->
   <meta name="robots" content="noindex, nofollow">
   <title>Take Our Stuff Please</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="site-header">
+    <p class="eyebrow">Friends &amp; family first dibs</p>
     <h1>Take Our Stuff Please</h1>
-    <p class="tagline">Friends &amp; family get first dibs. Whatever's left goes to Goodwill.</p>
+    <div class="swatches" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <p class="tagline">Claim anything you'd like. Whatever's left goes to Goodwill.</p>
 
     <div class="countdown" id="countdown" aria-live="polite">
       <span class="countdown-label">Goodwill run in</span>
@@ -46,11 +51,16 @@
     <div class="dialog-body">
       <h2 id="dlg-name"></h2>
       <p id="dlg-desc"></p>
+      <p class="count-note" id="dlg-count" hidden></p>
       <p class="reserved-note" id="dlg-reserved" hidden></p>
       <form id="reserve-form" class="reserve-form">
-        <label for="reserve-name">Want it? Put your name down:</label>
+        <label for="reserve-name" id="reserve-label">Want it? Put your name down:</label>
         <div class="reserve-row">
           <input id="reserve-name" name="name" maxlength="60" autocomplete="name" placeholder="Your name" required>
+          <span class="qty-field" id="qty-field" hidden>
+            <label for="reserve-qty" class="sr-only">How many</label>
+            <input id="reserve-qty" name="qty" type="number" inputmode="numeric" min="1" value="1" aria-label="How many">
+          </span>
           <button type="submit" id="reserve-btn">Reserve</button>
         </div>
         <p class="form-msg" id="form-msg" role="status"></p>

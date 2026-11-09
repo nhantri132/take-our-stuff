@@ -15,6 +15,13 @@
       "image": "images/stand-mixer.jpg"
     },
     {
+      "id": "mason-jars",
+      "name": "Mason jars",
+      "description": "Wide-mouth pint jars with lids. Take as many as you want.",
+      "image": "images/mason-jars.jpg",
+      "quantity": 10
+    },
+    {
       "id": "board-games",
       "name": "Box of board games",
       "description": "About 8 games, all pieces counted. Take one or the whole box.",
