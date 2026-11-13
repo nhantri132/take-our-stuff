@@ -294,6 +294,15 @@
         "images/lotus-produce-bags.jpg"
       ],
       "quantity": 2
+    },
+    {
+      "id": "red-satin-set",
+      "name": "Red satin cami and shorts set",
+      "category": "women's clothes",
+      "description": "Size Medium. Polyester satin cami top with matching ruffle-hem shorts.",
+      "images": [
+        "images/red-satin-set.jpg"
+      ]
     }
   ]
 }
