@@ -187,6 +187,16 @@
         "images/forever-young-bag.jpg",
         "images/forever-young-bag-inside.jpg"
       ]
+    },
+    {
+      "id": "silicone-spatulas",
+      "name": "Silicone spatulas",
+      "category": "kitchen",
+      "description": "Never used. Red, orange, blue, and green.",
+      "images": [
+        "images/silicone-spatulas.jpg"
+      ],
+      "quantity": 4
     }
   ]
 }
