@@ -107,7 +107,7 @@
     {
       "id": "dice",
       "name": "Blue dice set",
-      "category": "misc",
+      "category": "games",
       "description": "Blue-and-silver six-sided dice in a clear case.",
       "images": [
         "images/dice.jpg"
@@ -116,7 +116,7 @@
     {
       "id": "pink-dice",
       "name": "Pink dice set",
-      "category": "misc",
+      "category": "games",
       "description": "7-piece polyhedral set (D&D-style), pink and purple with gold numbers, in a carrying tube.",
       "images": [
         "images/pink-dice.jpg"
@@ -125,7 +125,7 @@
     {
       "id": "black-dice",
       "name": "Black dice set",
-      "category": "misc",
+      "category": "games",
       "description": "7-piece polyhedral set (D&D-style), black with gold numbers. Still in the bag.",
       "images": [
         "images/black-dice.jpg"
@@ -134,7 +134,7 @@
     {
       "id": "ivory-dice",
       "name": "Ivory dice set (gift box)",
-      "category": "misc",
+      "category": "games",
       "description": "7-piece polyhedral set (D&D-style), ivory with blue numbers, in a black foam-lined gift box.",
       "images": [
         "images/ivory-dice.jpg"
@@ -168,6 +168,15 @@
         "images/red-bath-towel.jpg"
       ],
       "quantity": 2
+    },
+    {
+      "id": "mtg-midnight-hunt",
+      "name": "Magic: The Gathering cards (Innistrad: Midnight Hunt)",
+      "category": "games",
+      "description": "A box of cards, all from Innistrad: Midnight Hunt, plus a bunch of unopened set booster packs.",
+      "images": [
+        "images/mtg-midnight-hunt.jpg"
+      ]
     }
   ]
 }
