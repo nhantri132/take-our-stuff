@@ -303,6 +303,15 @@
       "images": [
         "images/red-satin-set.jpg"
       ]
+    },
+    {
+      "id": "uniqlo-sweater",
+      "name": "Uniqlo wool sweater",
+      "category": "women's clothes",
+      "description": "Size Large. Periwinkle-blue ribbed knit with a high collar and full zip.",
+      "images": [
+        "images/uniqlo-sweater.jpg"
+      ]
     }
   ]
 }
