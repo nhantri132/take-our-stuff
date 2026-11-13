@@ -226,6 +226,16 @@
         "images/dutch-bros-float.jpg"
       ],
       "quantity": 2
+    },
+    {
+      "id": "trader-joes-bag",
+      "name": "Trader Joe's collapsible bag",
+      "category": "home",
+      "description": "Mini zip pouch with a full-size reusable grocery bag folded up inside.",
+      "images": [
+        "images/trader-joes-bag.jpg",
+        "images/trader-joes-bag-inside.jpg"
+      ]
     }
   ]
 }
