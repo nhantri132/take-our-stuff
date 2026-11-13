@@ -284,6 +284,16 @@
         "images/zara-red-cords.jpg",
         "images/zara-red-cords-tag.jpg"
       ]
+    },
+    {
+      "id": "lotus-produce-bags",
+      "name": "Lotus mesh produce bags",
+      "category": "home",
+      "description": "Reusable drawstring mesh bags for fruits and veggies. One purple, one teal.",
+      "images": [
+        "images/lotus-produce-bags.jpg"
+      ],
+      "quantity": 2
     }
   ]
 }
