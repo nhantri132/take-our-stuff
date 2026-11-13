@@ -246,6 +246,16 @@
         "images/woven-coasters.jpg"
       ],
       "quantity": 2
+    },
+    {
+      "id": "ririku-coasters",
+      "name": "Ririku coasters",
+      "category": "home",
+      "description": "Square peach coasters with a white marbled swirl.",
+      "images": [
+        "images/ririku-coasters.jpg"
+      ],
+      "quantity": 2
     }
   ]
 }
