@@ -216,6 +216,16 @@
       "images": [
         "images/turner-and-spoon.jpg"
       ]
+    },
+    {
+      "id": "dutch-bros-float",
+      "name": "Funboy x Dutch Bros drink float",
+      "category": "home",
+      "description": "Unopened. Inflatable pool drink holder, about 12\" across.",
+      "images": [
+        "images/dutch-bros-float.jpg"
+      ],
+      "quantity": 2
     }
   ]
 }
