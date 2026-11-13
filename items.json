@@ -256,6 +256,15 @@
         "images/ririku-coasters.jpg"
       ],
       "quantity": 2
+    },
+    {
+      "id": "ice-cream-scoop",
+      "name": "Greg Natale ice cream scoop",
+      "category": "kitchen",
+      "description": "Chrome scoop with a butter-yellow handle.",
+      "images": [
+        "images/ice-cream-scoop.jpg"
+      ]
     }
   ]
 }
