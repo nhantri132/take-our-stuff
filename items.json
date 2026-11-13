@@ -15,7 +15,7 @@
     {
       "id": "steel-bottle",
       "name": "Stainless Steel Bottle",
-      "category": "kitchen",
+      "category": "home",
       "description": "Holds a moderate amount of liquid.",
       "images": [
         "images/steel-bottle.jpg"
@@ -201,7 +201,7 @@
     {
       "id": "art-club-cup",
       "name": "Art Club stainless steel cup",
-      "category": "kitchen",
+      "category": "home",
       "description": "Black travel cup with a flip-top lid.",
       "images": [
         "images/art-club-cup.jpg"
