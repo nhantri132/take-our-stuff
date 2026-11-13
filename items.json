@@ -265,6 +265,15 @@
       "images": [
         "images/ice-cream-scoop.jpg"
       ]
+    },
+    {
+      "id": "heb-shaker-bottle",
+      "name": "H-E-B shaker bottle",
+      "category": "home",
+      "description": "BlenderBottle brand, still has the shaker ball inside.",
+      "images": [
+        "images/heb-shaker-bottle.jpg"
+      ]
     }
   ]
 }
