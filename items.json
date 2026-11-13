@@ -312,6 +312,15 @@
       "images": [
         "images/uniqlo-sweater.jpg"
       ]
+    },
+    {
+      "id": "express-sweater",
+      "name": "Express color-block sweater",
+      "category": "women's clothes",
+      "description": "Size Medium. Lilac half-zip with yellow sleeves and a cream collar.",
+      "images": [
+        "images/express-sweater.jpg"
+      ]
     }
   ]
 }
