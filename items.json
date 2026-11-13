@@ -177,6 +177,16 @@
       "images": [
         "images/mtg-midnight-hunt.jpg"
       ]
+    },
+    {
+      "id": "forever-young-bag",
+      "name": "Forever Young crossbody bag",
+      "category": "women's clothes",
+      "description": "Used a couple of times. Small black phone/wallet bag with multiple zip compartments, card slots, and a shoulder strap.",
+      "images": [
+        "images/forever-young-bag.jpg",
+        "images/forever-young-bag-inside.jpg"
+      ]
     }
   ]
 }
