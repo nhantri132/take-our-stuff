@@ -236,6 +236,16 @@
         "images/trader-joes-bag.jpg",
         "images/trader-joes-bag-inside.jpg"
       ]
+    },
+    {
+      "id": "woven-coasters",
+      "name": "Woven coasters",
+      "category": "home",
+      "description": "Coiled natural-grass coasters with a white cotton-wrapped edge.",
+      "images": [
+        "images/woven-coasters.jpg"
+      ],
+      "quantity": 2
     }
   ]
 }
