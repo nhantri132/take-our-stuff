@@ -207,6 +207,15 @@
         "images/art-club-cup.jpg"
       ],
       "quantity": 2
+    },
+    {
+      "id": "turner-and-spoon",
+      "name": "Silicone spatula and serving spoon",
+      "category": "kitchen",
+      "description": "Gray silicone heads with wooden handles. Comes as a pair.",
+      "images": [
+        "images/turner-and-spoon.jpg"
+      ]
     }
   ]
 }
